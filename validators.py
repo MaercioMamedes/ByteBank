@@ -14,6 +14,7 @@ def validador_value(account, value, operation_type):
     operation = {
         'deposit': 'depósito',
         'withdraw': 'saque',
+        'transfer': 'transferência',
     }
 
     try:
@@ -24,9 +25,14 @@ def validador_value(account, value, operation_type):
         else:
             if operation_type == 'deposit':
                 account.balance = value
-            else:
+            elif operation_type == 'withdraw':
                 if account.balance >= value:
                     account.balance = -value
+                else:
+                    raise InsuffcientBalance
+            elif operation_type == 'transfer':
+                if account.balance >= value:
+                    return True
                 else:
                     raise InsuffcientBalance
 

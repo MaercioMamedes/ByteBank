@@ -1,4 +1,5 @@
 from validators import validator_integer, validador_value
+from exceptions import OperationInvalid
 
 
 class CheckingAccount:
@@ -23,6 +24,14 @@ class CheckingAccount:
     def withdraw(self, value):
         validador_value(self, value, 'withdraw')
 
+    def transfer(self, favored, value):
+        if favored.checking_account_number == self._checking_account_number and favored.agency.id == self._agency.id:
+            raise OperationInvalid('payer_equal_favored')
+
+        if validador_value(self, value, 'transfer'):
+            self._balance -= value
+            favored.balance += value
+
     def __str__(self):
         return f"cliente: {self._client}\nagência: {self._agency.id_agency}" \
                f"\nconta correte: {self._checking_account_number}"
@@ -34,3 +43,7 @@ class CheckingAccount:
     @balance.setter
     def balance(self, value):
         self._balance += value
+
+    @property
+    def checking_account_number(self):
+        return self._checking_account_number
