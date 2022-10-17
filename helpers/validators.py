@@ -1,4 +1,4 @@
-from exceptions import OperationInvalid, InsuffcientBalance
+from models.exceptions import OperationInvalid, InsuffcientBalance
 
 
 def validator_integer(client_id, msg):

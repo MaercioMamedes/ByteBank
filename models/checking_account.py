@@ -1,5 +1,5 @@
-from validators import validator_integer, validador_value
-from exceptions import OperationInvalid
+from helpers.validators import validator_integer, validador_value
+from models.exceptions import OperationInvalid
 
 
 class CheckingAccount:

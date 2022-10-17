@@ -1,4 +1,4 @@
-from validators import validator_integer
+from helpers.validators import validator_integer
 
 
 class Client:
