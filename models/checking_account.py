@@ -1,8 +1,14 @@
 from helpers.validators import validator_integer, validador_value
-from models.exceptions import OperationInvalid
+from models.exceptions import OperationInvalid, InsuffcientBalance
 
 
 class CheckingAccount:
+
+    operation = {
+        'deposit': 'depósito',
+        'withdraw': 'saque',
+        'transfer': 'transferência',
+    }
 
     def __init__(self, client, agency):
         self._client = client
@@ -18,11 +24,53 @@ class CheckingAccount:
         validator_integer(account_number, 'Número da conta')
         self._checking_account_number = account_number
 
+    def _validador(self, value, operation_type):
+
+        if not (type(value) == int or type(value) == float):
+            raise ValueError(f'valor para {self.operation[operation_type]} incorreto')
+
+        elif value <= 0:
+            raise OperationInvalid('value_negative')
+
+        else:
+            if operation_type == 'deposit':
+                pass
+
+            elif operation_type == 'withdraw':
+                if self._balance >= value:
+                    return True
+
+                else:
+                    raise InsuffcientBalance
+
+            elif operation_type == 'transfer':
+                if self._balance >= value:
+                    pass
+
+                else:
+                    raise InsuffcientBalance
+
     def deposit(self,  value):
         validador_value(self, value, 'deposit')
 
     def withdraw(self, value):
-        validador_value(self, value, 'withdraw')
+        operation_type = 'withdraw'
+
+        try:
+            if self._validador(value, operation_type):
+                self._balance -= value
+
+        except ValueError as E:
+            print(E)
+
+        except OperationInvalid as E2:
+            print(E2)
+
+        except InsuffcientBalance as E3:
+            print(E3)
+
+        else:
+            print('operação realizada com sucesso')
 
     def transfer(self, favored, value):
         if favored.checking_account_number == self._checking_account_number and favored.agency.id == self._agency.id:
