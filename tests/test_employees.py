@@ -26,5 +26,13 @@ class TestClass:
 
         assert result == expected
 
+    def test_when_wage_of_the_director_maercio_receives_100000_it_starts_getting_90000(self):
+        input_name = 'Maercio Mamedes'
+        input_wage = 100000.00
+        employee = Employee(input_name, '23/05/1991', input_wage)
 
+        expected = 90000.00
+        employee.discount_salary()
+        result = employee.wage
 
+        assert result == expected

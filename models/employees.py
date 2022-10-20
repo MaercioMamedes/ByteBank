@@ -2,6 +2,8 @@ from datetime import date
 
 
 class Employee:
+    directors = ['Maercio Mamedes', 'Nathália Mamedes', 'Iracilda Mamedes' ]
+
     def __init__(self, name, birth_date, wage):
         self._name = name.strip()
         self._birth_date = birth_date
@@ -32,3 +34,8 @@ class Employee:
 
     def __str__(self):
         return f'Funcionario({self._name}, {self._birth_date}, {self._wage})'
+
+    def discount_salary(self):
+        self._wage = self._wage*0.9 if self._name in self.directors else self._wage
+
+
