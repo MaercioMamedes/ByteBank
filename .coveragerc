@@ -1,0 +1,5 @@
+[run]
+source = ./models
+
+[html]
+directory = coverage_report_html

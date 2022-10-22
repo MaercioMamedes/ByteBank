@@ -1,7 +1,9 @@
 from models.employees import Employee
+from pytest import mark
 
 
 class TestClass:
+    @mark.return_age
     def test_when_age_receives_13_03_2000_must_return_22(self):
         input_data = '13/03/2000'
         expected = 22
@@ -10,6 +12,7 @@ class TestClass:
 
         assert result == expected
 
+    @mark.calculate_bonus
     def test_when_value_receive_1000_returns_100(self):
         input_data = 1000
         expected = 100
