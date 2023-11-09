@@ -1,16 +1,18 @@
 from exceptions import OperationInvalid, InsuffcientBalance
 
 
-def validator_integer(client_id, msg):
+def validator_integer(client_id, msg) -> None:
     if (not isinstance(client_id, int)) or (client_id == ''):
         raise ValueError(f'valor do atributo {msg} incorreto')
 
 
-def verify_accounts(obj):
+def verify_accounts(obj) -> None:
     print(dir(obj))
 
 
 def validador_value(account, value, operation_type):
+    """REFATORAR"""
+
     operation = {
         'deposit': 'depósito',
         'withdraw': 'saque',
@@ -18,16 +20,16 @@ def validador_value(account, value, operation_type):
     }
 
     try:
-        if not (type(value) == int or type(value) == float):
+        if not (type(value) is int) or (type(value) is float):
             raise ValueError(f'valor para {operation[operation_type]} incorreto')
         elif value <= 0:
             raise OperationInvalid('value_negative')
         else:
             if operation_type == 'deposit':
-                account.balance = value
+                account.balance += value
             elif operation_type == 'withdraw':
                 if account.balance >= value:
-                    account.balance = -value
+                    account.balance -= value
                 else:
                     raise InsuffcientBalance
             elif operation_type == 'transfer':

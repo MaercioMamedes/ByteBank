@@ -6,19 +6,19 @@ from datetime import datetime
 class Agency:
 
     def __init__(self, id_agency):
-        self._id_agency = id_agency
-        self.registered_accounts = {}  # Atributo onde serão armazenadas todas as Classes CheckingAccount relacionadas
+        self._id_agency: int = id_agency
+        self.registered_accounts: dict = {}  # Atributo onde serão armazenadas todas as Classes CheckingAccount relacionadas
 
-    def add_account(self, account):
+    def add_account(self, account) -> None:
         self.registered_accounts[account.id] = account
 
     @property
-    def id_agency(self):
+    def id_agency(self) -> int:
         return self._id_agency
 
     """Gerador de número de contas da classe CheckingAccount"""
 
-    def creator_number_account(self):
+    def creator_number_account(self) -> int:
         number = datetime.now().microsecond  # O número da conta será definido por esse método
         if number not in self.registered_accounts.keys():
             return number

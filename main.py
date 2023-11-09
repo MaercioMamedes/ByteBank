@@ -1,6 +1,6 @@
-from client import *
-from agency import *
-from checking_account import *
+from client import Client
+from agency import Agency
+from checking_account import CheckingAccount
 
 if __name__ == '__main__':
     client1 = Client(1, 'Maercio')
